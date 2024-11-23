@@ -21,6 +21,16 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Card } from "@/components/ui/card";
+import { Plus } from "lucide-react";
 
 type HistoricalData = {
   year: number;
@@ -141,6 +151,57 @@ export default function Home() {
     });
   }
 
+  const handleDataUpdate = (
+    index: number,
+    field: "year" | "revenue",
+    value: string
+  ) => {
+    if (!historicalData) return;
+
+    const updatedData = [...historicalData];
+    let parsedValue: number;
+
+    if (field === "year") {
+      parsedValue = parseInt(value);
+    } else {
+      const cleanValue = value.replace(/[$,]/g, "");
+      parsedValue = parseFloat(cleanValue);
+    }
+
+    if (!isNaN(parsedValue)) {
+      updatedData[index] = {
+        ...updatedData[index],
+        [field]: parsedValue,
+      };
+      setHistoricalData(updatedData);
+    }
+  };
+
+  const formatRevenue = (value: number) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
+
+  const handleAddRow = () => {
+    if (!historicalData) {
+      setHistoricalData([{ year: new Date().getFullYear(), revenue: 0 }]);
+      return;
+    }
+
+    const newYear = Math.max(...historicalData.map((d) => d.year)) + 1;
+    setHistoricalData([...historicalData, { year: newYear, revenue: 0 }]);
+  };
+
+  const handleDeleteRow = (index: number) => {
+    if (!historicalData) return;
+    const updatedData = historicalData.filter((_, i) => i !== index);
+    setHistoricalData(updatedData);
+  };
+
   return (
     <main className="flex flex-col items-center justify-items-center min-h-screen gap-20 p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       {/* <ModeToggle /> */}
@@ -176,7 +237,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section>
+      <section className="flex justify-center items-center gap-40">
         {/* {projectionResult && (
           <div className="overflow-auto mt-4">
             <h2 className="text-xl font-semibold">Projection Result:</h2>
@@ -185,6 +246,69 @@ export default function Home() {
             </pre>
           </div>
         )} */}
+
+        {/* Historical Data Edit */}
+        {historicalData && (
+          <Card className="w-full max-w-2xl p-6">
+            <div className="flex flex-col gap-4">
+              <div className="flex justify-between items-center">
+                <h2 className="text-lg font-semibold">Historical Data</h2>
+                <Button
+                  onClick={handleAddRow}
+                  size="sm"
+                  className="flex items-center gap-2"
+                >
+                  <Plus className="h-4 w-4" /> Add Row
+                </Button>
+              </div>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[100px]">Year</TableHead>
+                    <TableHead>Revenue</TableHead>
+                    <TableHead className="w-[100px]">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {historicalData.map((data, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">
+                        <Input
+                          type="number"
+                          value={data.year}
+                          onChange={(e) =>
+                            handleDataUpdate(index, "year", e.target.value)
+                          }
+                          className="w-24"
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Input
+                          type="text"
+                          value={formatRevenue(data.revenue)}
+                          onChange={(e) =>
+                            handleDataUpdate(index, "revenue", e.target.value)
+                          }
+                          className="w-40"
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDeleteRow(index)}
+                          className="h-8 w-full p-0"
+                        >
+                          ×
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </Card>
+        )}
 
         {/* Chart Section */}
         <ChartContainer config={chartConfig} className="w-full h-64">

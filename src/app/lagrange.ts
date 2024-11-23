@@ -50,13 +50,13 @@ export function financialProjection(
   };
 }
 
-const historicalData: HistoricalData[] = [
-  { year: 2018, revenue: 10000 },
-  { year: 2019, revenue: 15000 },
-  { year: 2020, revenue: 20000 },
-  { year: 2021, revenue: 25000 },
-];
+// const historicalData: HistoricalData[] = [
+//   { year: 2018, revenue: 10000 },
+//   { year: 2019, revenue: 15000 },
+//   { year: 2020, revenue: 20000 },
+//   { year: 2021, revenue: 25000 },
+// ];
 
-const projectionYear = 2023;
-const result = financialProjection(historicalData, projectionYear);
-console.log("Projection Result:", result);
+// const projectionYear = 2023;
+// const result = financialProjection(historicalData, projectionYear);
+// console.log("Projection Result:", result);
