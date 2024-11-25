@@ -97,7 +97,7 @@ export default function Home() {
         value.toLocaleString(undefined, { style: "currency", currency: "USD" });
 
     return (
-        <main className="flex flex-col items-center gap-10 p-6">
+        <main className="mx-auto flex flex-col items-center gap-6 p-3 md:p-6 max-w-7xl w-full">
             <FileUploadProjection
                 onFileUpload={handleFileUpload}
                 projectionYear={projectionYear}
@@ -106,7 +106,7 @@ export default function Home() {
                 error={error}
             />
 
-            <section className="flex justify-center gap-40">
+            <section className="flex flex-col lg:flex-row justify-center gap-6 lg:gap-10 w-full">
                 <HistoricalDataTable
                     historicalData={historicalData}
                     handleDataUpdate={handleDataUpdate}

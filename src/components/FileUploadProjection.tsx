@@ -17,9 +17,9 @@ export const FileUploadProjection = ({
     handleProjection,
     error,
 }: FileUploadProjectionProps) => (
-    <section className="flex flex-col gap-6">
-        <h2 className="text-2xl font-semibold">Data Input</h2>
-        <div className="flex justify-center items-center gap-10">
+    <section className="flex flex-col gap-4 md:gap-6 w-full">
+        <h2 className="text-xl md:text-2xl font-semibold">Data Input</h2>
+        <div className="flex flex-col sm:flex-row justify-center items-start sm:items-center gap-4 sm:gap-10 w-full">
             <div className="grid w-full max-w-sm items-center gap-2">
                 <Label htmlFor="csv-file">Upload CSV File</Label>
                 <Input
@@ -29,7 +29,7 @@ export const FileUploadProjection = ({
                     onChange={onFileUpload}
                 />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 w-full sm:w-auto">
                 <Label htmlFor="projection-year">Projection Year:</Label>
                 <Input
                     id="projection-year"
@@ -41,8 +41,10 @@ export const FileUploadProjection = ({
             </div>
         </div>
         <div className="flex flex-col gap-2">
-            <Button onClick={handleProjection}>Calculate Projection</Button>
-            {error && <p className="text-red-500">{error}</p>}
+            <Button onClick={handleProjection} className="w-full sm:w-auto">
+                Calculate Projection
+            </Button>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
         </div>
     </section>
 );
