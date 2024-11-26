@@ -9,7 +9,7 @@ import { financialProjection } from "../lib/lagrange";
 import { HistoricalData, ProjectionResult } from "@/types/types";
 
 export default function Home() {
-    const [projectionYear, setProjectionYear] = useState<number>(null);
+    const [projectionYear, setProjectionYear] = useState<number | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [historicalData, setHistoricalData] = useState<
         HistoricalData[] | null
