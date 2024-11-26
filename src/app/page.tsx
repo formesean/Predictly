@@ -9,7 +9,7 @@ import { financialProjection } from "../lib/lagrange";
 import { HistoricalData, ProjectionResult } from "@/types/types";
 
 export default function Home() {
-    const [projectionYear, setProjectionYear] = useState<number>(2023);
+    const [projectionYear, setProjectionYear] = useState<number>(null);
     const [error, setError] = useState<string | null>(null);
     const [historicalData, setHistoricalData] = useState<
         HistoricalData[] | null
@@ -76,10 +76,19 @@ export default function Home() {
         value: string
     ) => {
         if (!historicalData) return;
+
         const updatedData = [...historicalData];
-        if (field === "year") updatedData[index].year = Number(value);
-        if (field === "revenue")
-            updatedData[index].revenue = Number(value.replace(/,/g, ""));
+
+        if (field === "year") {
+            updatedData[index].year = value === "" ? 0 : Number(value);
+        }
+
+        if (field === "revenue") {
+            const cleanValue = value.replace(/[₱,]/g, "");
+            updatedData[index].revenue =
+                cleanValue === "" ? 0 : Number(cleanValue);
+        }
+
         setHistoricalData(updatedData);
     };
 
@@ -93,8 +102,14 @@ export default function Home() {
         );
     };
 
-    const formatRevenue = (value: number) =>
-        value.toLocaleString(undefined, { style: "currency", currency: "USD" });
+    const formatRevenue = (value: number) => {
+        return new Intl.NumberFormat("en-PH", {
+            style: "currency",
+            currency: "PHP",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+        }).format(value);
+    };
 
     return (
         <main className="mx-auto flex flex-col items-center gap-6 p-3 md:p-6 max-w-7xl w-full">

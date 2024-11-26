@@ -34,7 +34,7 @@ export const FileUploadProjection = ({
                 <Input
                     id="projection-year"
                     type="number"
-                    value={projectionYear}
+                    value={projectionYear || ""}
                     onChange={(e) => setProjectionYear(Number(e.target.value))}
                     placeholder="Enter projection year"
                 />
