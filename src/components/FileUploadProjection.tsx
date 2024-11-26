@@ -18,7 +18,10 @@ export const FileUploadProjection = ({
     error,
 }: FileUploadProjectionProps) => (
     <section className="flex flex-col gap-4 md:gap-6 w-full">
-        <h2 className="text-xl md:text-2xl font-semibold">Data Input</h2>
+        <h2 className="text-xl md:text-2xl font-semibold">
+            Please ensure your CSV file contains the correct format. You can
+            upload your file below and set the projection year.
+        </h2>
         <div className="flex flex-col sm:flex-row justify-center items-start sm:items-center gap-4 sm:gap-10 w-full">
             <div className="grid w-full max-w-sm items-center gap-2">
                 <Label htmlFor="csv-file">Upload CSV File</Label>
