@@ -62,7 +62,7 @@ export const HistoricalDataTable = ({
                                     <TableCell className="font-medium">
                                         <Input
                                             type="number"
-                                            value={data.year}
+                                            value={data.year || ""}
                                             onChange={(e) =>
                                                 handleDataUpdate(
                                                     index,
@@ -77,13 +77,13 @@ export const HistoricalDataTable = ({
                                         <Input
                                             type="text"
                                             value={formatRevenue(data.revenue)}
-                                            onChange={(e) =>
+                                            onChange={(e) => {
                                                 handleDataUpdate(
                                                     index,
                                                     "revenue",
                                                     e.target.value
-                                                )
-                                            }
+                                                );
+                                            }}
                                             className="w-40"
                                         />
                                     </TableCell>
