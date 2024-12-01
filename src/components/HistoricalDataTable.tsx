@@ -46,8 +46,8 @@ export const HistoricalDataTable = ({
                     <Plus className="h-4 w-4" /> Add Row
                 </Button>
             </div>
-            <div className="overflow-x-auto">
-                <Table>
+            <div className="overflow-x-auto w-full">
+                <Table className="w-full">
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-24">Year</TableHead>
@@ -56,7 +56,7 @@ export const HistoricalDataTable = ({
                         </TableRow>
                     </TableHeader>
                     {historicalData && (
-                        <TableBody>
+                        <TableBody className="w-full">
                             {historicalData.map((data, index) => (
                                 <TableRow key={index}>
                                     <TableCell className="font-medium">
@@ -70,7 +70,7 @@ export const HistoricalDataTable = ({
                                                     e.target.value
                                                 )
                                             }
-                                            className="w-24"
+                                            className="w-auto"
                                         />
                                     </TableCell>
                                     <TableCell>
@@ -84,7 +84,7 @@ export const HistoricalDataTable = ({
                                                     e.target.value
                                                 );
                                             }}
-                                            className="w-40"
+                                            className="w-auto"
                                         />
                                     </TableCell>
                                     <TableCell>

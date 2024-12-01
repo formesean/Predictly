@@ -28,7 +28,7 @@ export const ProjectionChart = ({
     chartData,
     chartConfig,
 }: ProjectionChartProps) => (
-    <Card className="w-full lg:flex-1 p-4 md:p-6">
+    <Card className="w-full lg:max-w-2xl p-4 md:p-6">
         <div className="flex flex-col gap-4">
             <h2 className="text-base md:text-lg font-semibold">
                 Projection Chart
